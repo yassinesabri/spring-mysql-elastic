@@ -1,6 +1,7 @@
 package com.example.springmysqlelastic.mapper;
 
 import com.example.springmysqlelastic.model.User;
+import com.example.springmysqlelastic.model.UserModel;
 import com.example.springmysqlelastic.model.dto.UserDTO;
 import org.mapstruct.Mapper;
 
@@ -16,4 +17,6 @@ public interface UserMapper {
     User toUser(UserDTO userDTO);
 
     List<User> toUsers(List<UserDTO> userDTOS);
+
+    UserModel toUserModel(User user);
 }

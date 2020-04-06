@@ -1,28 +1,17 @@
 package com.example.springmysqlelastic.model;
 
-import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.elasticsearch.annotations.Document;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import java.util.Date;
 
-@Entity
-public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+@Document(indexName = "user")
+public class UserModel {
     private Long id;
     private String firstName;
     private String lastName;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    @UpdateTimestamp
     private Date modificationDate;
 
-    public User() {
+    public UserModel() {
         // do nothing
     }
 
@@ -38,8 +27,8 @@ public class User {
         return firstName;
     }
 
-    public void setFirstName(String firsName) {
-        this.firstName = firsName;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     public String getLastName() {
