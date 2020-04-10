@@ -1,0 +1,59 @@
+version: '3.5'
+
+services:
+
+  mysql:
+    image: mysql:5.7
+    container_name: mysql
+    restart: always
+    hostname: mysql
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mysql_data:/var/lib/mysql
+    environment:
+      - MYSQL_USER=root
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=elasticsearch
+      - MYSQL_ROOT_HOST=%
+      - DEFAULT_TIME_ZONE=Europe/Paris
+
+  application:
+    build: ./
+    container_name: application
+    restart: always
+    ports:
+      - "8080:8080"
+    links:
+      - mysql
+    environment:
+      - MYSQL_DATASOURCE=mysql:3306
+      - SPRING_DATASOURCE_PASSWORD=root
+      - CLUSTER_NAME=elastic
+      - CLUSTER_NODES=elastic:9300
+
+  # Service ElasticSearch
+  elasticsearch:
+    image: elastic/elasticsearch:6.2.2
+    container_name: elastic
+    hostname: elastic
+    ports:
+      - 9200:9200
+      - 9300:9300
+    volumes:
+      - esdata:/usr/share/elasticsearch/data
+    environment:
+      - http.host=0.0.0.0
+      - transport.host=elastic
+      - network.host=0.0.0.0
+      - xpack.security.enabled=false
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - cluster.name=elastic
+      - discovery.type=single-node
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+volumes:
+  esdata:
+    driver: local
