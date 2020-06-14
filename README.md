@@ -15,6 +15,7 @@ Make sure to have the followings installed:
 * Locally
   - Create a database in MySql `elasticsearch`
   - Run `mvn clean package spring-boot:run` to build the artifact and run the application
+  - Run `./elasticsearch` script inside the bin directory of the elastic search package
 
 * Docker
   - Run `docker-compose up --build -d` to run the docker services
