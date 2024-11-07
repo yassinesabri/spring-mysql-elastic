@@ -19,7 +19,7 @@
         <java.version>1.8</java.version>
         <mapstruct.version>1.3.0.Final</mapstruct.version>
         <org.json.version>20231013</org.json.version>
-        <swagger.version>2.9.2</swagger.version>
+        <swagger.version>2.10.0</swagger.version>
     </properties>
 
     <dependencies>
